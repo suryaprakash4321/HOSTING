@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREA 51 - Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #faea05;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #353533;
+            padding: 20px 0;
+            text-align: center;
+            animation: fadeInHeader 2s ease-in-out;
+        }
+
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes titleAnimation {
+            0% { 
+                color: #f1f502; 
+                transform: scale(1); 
+            }
+            50% { 
+                color: #eff301; 
+                transform: scale(1.2); 
+            }
+            100% { 
+                color: #e7f700; 
+                transform: scale(1); 
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ffffff;
+            text-shadow: 2px 2px #ffee05;
+            margin: 0;
+            animation: titleAnimation 3s infinite;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(0, 209, 216);
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #e0f004;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: slideInMain 1.5s ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes slideInMain {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .calculator {
+            background: linear-gradient(145deg, #333, #000);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .display {
+            font-size: 2.5em;
+            background-color: #000;
+            color: #0f0;
+            text-align: right;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: inset 0px 0px 10px rgba(0, 255, 0, 0.5), 0px 0px 10px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .buttons button {
+            padding: 20px;
+            font-size: 1.5em;
+            background: linear-gradient(145deg, #4a4a4a, #303030);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.2s, transform 0.2s;
+            box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .buttons button:hover {
+            background: linear-gradient(145deg, #5b5b5b, #353535);
+        }
+
+        .buttons button:active {
+            box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.5);
+            transform: translateY(2px);
+        }
+
+        .buttons button.operator {
+            background: linear-gradient(145deg, #faea05, #e0d004);
+            color: #000;
+        }
+
+        .buttons button.operator:hover {
+            background: linear-gradient(145deg, #f5d703, #c8bb03);
+        }
+
+        footer {
+            background-color: #333;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            color: #99aab5;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AREA 51 - Calculator</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="details.html">Samp Details</a></li>
+                <li><a href="gpt.html">Chat Gpt</a></li>
+                <li><a href="tictactoe.html">Game</a></li>
+                <li><a href="calculator.html">Calculator</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            <div class="buttons">
+                <button onclick="clearDisplay()">C</button>
+                <button onclick="deleteLast()">DEL</button>
+                <button onclick="appendOperator('%')">%</button>
+                <button class="operator" onclick="appendOperator('÷')">÷</button>
+
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button class="operator" onclick="appendOperator('*')">×</button>
+
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button class="operator" onclick="appendOperator('-')">−</button>
+
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button class="operator" onclick="appendOperator('+')">+</button>
+
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="appendNumber('.')">.</button>
+                <button class="operator" onclick="calculateResult()">=</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AREA 51. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '';
+        let currentOperator = null;
+        let previousInput = null;
+
+        function appendNumber(number) {
+            if (display.textContent === '0' && number !== '.') {
+                currentInput = number;
+            } else {
+                currentInput += number;
+            }
+            display.textContent = currentInput;
+        }
+
+        function appendOperator(operator) {
+            if (currentInput === '' && operator === '-') {
+                currentInput = '-';
+                display.textContent = currentInput;
+                return;
+            }
+
+            if (currentInput !== '') {
+                calculateResult();
+                previousInput = currentInput;
+                currentInput = '';
+            }
+            currentOperator = operator;
+            display.textContent = previousInput + ' ' + currentOperator; // Display the operator
+        }
+
+        function calculateResult() {
+            if (currentOperator && previousInput !== null && currentInput !== '') {
+                let result;
+                let prev = parseFloat(previousInput);
+                let current = parseFloat(currentInput);
+
+                switch (currentOperator) {
+                    case '+':
+                        result = prev + current;
+                        break;
+                    case '-':
+                        result = prev - current;
+                        break;
+                    case '*':
+                        result = prev * current;
+                        break;
+                    case '÷':
+                        result = prev / current;
+                        break;
+                    case '%':
+                        result = prev % current;
+                        break;
+                }
+
+                display.textContent = result;
+                currentInput = result.toString();
+                currentOperator = null;
+                previousInput = null;
+            }
+        }
+
+        function clearDisplay() {
+            display.textContent = '0';
+            currentInput = '';
+            currentOperator = null;
+            previousInput = null;
+        }
+
+        function deleteLast() {
+            currentInput = currentInput.slice(0, -1);
+            display.textContent = currentInput || '0';
+        }
+    </script>
+
+</body>
+</html>

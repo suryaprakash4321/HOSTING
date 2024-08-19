@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREA 51 - Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #faea05;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #353533;
+            padding: 20px 0;
+            text-align: center;
+            animation: fadeInHeader 2s ease-in-out;
+        }
+
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes titleAnimation {
+            0% { 
+                color: #f1f502; 
+                transform: scale(1); 
+            }
+            50% { 
+                color: #eff301; 
+                transform: scale(1.2); 
+            }
+            100% { 
+                color: #e7f700; 
+                transform: scale(1); 
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ffffff;
+            text-shadow: 2px 2px #ffee05;
+            margin: 0;
+            animation: titleAnimation 3s infinite;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(0, 209, 216);
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #e0f004;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            animation: slideInMain 1.5s ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes slideInMain {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .cell {
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            color: #fff;
+            position: relative;
+        }
+
+        .cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .cell:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+
+        .party-animation, .sad-animation {
+            display: none;
+            font-size: 3em;
+        }
+
+        .party-animation.active {
+            display: block;
+            animation: party 1s infinite;
+        }
+
+        @keyframes party {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .sad-animation.active {
+            display: block;
+            animation: sad 1s infinite;
+        }
+
+        @keyframes sad {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        footer {
+            background-color: #333;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            color: #99aab5;
+        }
+
+        .leaderboard {
+            margin-top: 20px;
+            font-size: 1.2em;
+            background-color: #000;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .leaderboard table {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #000;
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 10px;
+            border: 1px solid #000;
+            color: #fff;
+        }
+
+        .leaderboard th {
+            background-color: #252524;
+        }
+
+        .leaderboard tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        .new-game-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #353533;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .new-game-button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>GAME</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="details.html">Samp Details</a></li>
+                <li><a href="gpt.html">Chat Gpt</a></li>
+                <li><a href="tictactoe.html">Game</a></li>
+                <li><a href="calculator.html">Calculator</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="board" id="board">
+            <!-- Cells will be dynamically created here -->
+        </div>
+        <div class="message" id="message"></div>
+        <div class="party-animation">🎉🎉 You Win! 🎉🎉</div>
+        <div class="sad-animation">😢😢 You Lose! 😢😢</div>
+        <button class="new-game-button" onclick="startNewGame()">Start New Game</button>
+        <div class="leaderboard">
+            <h2>Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard">
+                    <tr>
+                        <td>X</td>
+                        <td id="x-wins">0</td>
+                        <td id="x-losses">0</td>
+                    </tr>
+                    <tr>
+                        <td>O</td>
+                        <td id="o-wins">0</td>
+                        <td id="o-losses">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2024 AREA 51. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const board = document.getElementById('board');
+        const message = document.getElementById('message');
+        const partyAnimation = document.querySelector('.party-animation');
+        const sadAnimation = document.querySelector('.sad-animation');
+        const xWinsElement = document.getElementById('x-wins');
+        const xLossesElement = document.getElementById('x-losses');
+        const oWinsElement = document.getElementById('o-wins');
+        const oLossesElement = document.getElementById('o-losses');
+
+        let cells = [];
+        let currentPlayer = 'X';
+        let gameBoard = Array(9).fill(null);
+        let gameActive = true;
+        let xWins = 0;
+        let xLosses = 0;
+        let oWins = 0;
+        let oLosses = 0;
+
+        function createBoard() {
+            board.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleClick);
+                board.appendChild(cell);
+                cells.push(cell);
+            }
+        }
+
+        function handleClick(e) {
+            const index = e.target.dataset.index;
+
+            if (!gameActive || gameBoard[index]) return;
+
+            gameBoard[index] = currentPlayer;
+            e.target.textContent = currentPlayer;
+
+            if (checkWinner()) {
+                message.textContent = `${currentPlayer} Wins!`;
+                updateLeaderboard(currentPlayer);
+                if (currentPlayer === 'X') {
+                    partyAnimation.classList.add('active');
+                } else {
+                    sadAnimation.classList.add('active');
+                }
+                gameActive = false;
+            } else if (gameBoard.every(cell => cell)) {
+                message.textContent = 'Draw!';
+                sadAnimation.classList.add('active');
+                gameActive = false;
+            } else {
+                currentPlayer = 'O';
+                setTimeout(botMove, 500); // Adding delay for realism
+            }
+        }
+
+        function botMove() {
+            if (!gameActive) return;
+
+            let emptyCells = gameBoard.map((cell, index) => cell === null ? index : null).filter(index => index !== null);
+            let bestMove = findBestMove(); // Improved bot strategy
+            let moveIndex = bestMove !== null ? bestMove : emptyCells[Math.floor(Math.random() * emptyCells.length)];
+
+            gameBoard[moveIndex] = 'O';
+            cells[moveIndex].textContent = 'O';
+
+            if (checkWinner()) {
+                message.textContent = 'O Wins!';
+                updateLeaderboard('O');
+                sadAnimation.classList.add('active');
+                gameActive = false;
+            } else if (gameBoard.every(cell => cell)) {
+                message.textContent = 'Draw!';
+                sadAnimation.classList.add('active');
+                gameActive = false;
+            } else {
+                currentPlayer = 'X';
+            }
+        }
+
+        function findBestMove() {
+            const winningCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] // diagonals
+            ];
+
+            for (let combination of winningCombinations) {
+                const [a, b, c] = combination;
+                if (gameBoard[a] === gameBoard[b] && gameBoard[a] !== null && gameBoard[c] === null) {
+                    return c;
+                } else if (gameBoard[a] === gameBoard[c] && gameBoard[a] !== null && gameBoard[b] === null) {
+                    return b;
+                } else if (gameBoard[b] === gameBoard[c] && gameBoard[b] !== null && gameBoard[a] === null) {
+                    return a;
+                }
+            }
+
+            return null;
+        }
+
+        function checkWinner() {
+            const winningCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] // diagonals
+            ];
+
+            return winningCombinations.some(combination => {
+                const [a, b, c] = combination;
+                return gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
+            });
+        }
+
+        function updateLeaderboard(winner) {
+            if (winner === 'X') {
+                xWins++;
+                oLosses++;
+                xWinsElement.textContent = xWins;
+                oLossesElement.textContent = oLosses;
+            } else if (winner === 'O') {
+                oWins++;
+                xLosses++;
+                oWinsElement.textContent = oWins;
+                xLossesElement.textContent = xLosses;
+            }
+        }
+
+        function startNewGame() {
+            gameBoard = Array(9).fill(null);
+            cells.forEach(cell => cell.textContent = '');
+            message.textContent = '';
+            partyAnimation.classList.remove('active');
+            sadAnimation.classList.remove('active');
+            currentPlayer = 'X';
+            gameActive = true;
+        }
+
+        createBoard();
+    </script>
+
+</body>
+</html>

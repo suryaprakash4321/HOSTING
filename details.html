@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREA 51 - Details</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #faea05;
+            color: #fff;
+        }
+        header {
+            background-color: #353533;
+            padding: 20px 0;
+            text-align: center;
+            animation: fadeInHeader 2s ease-in-out;
+        }
+
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes titleAnimation {
+            0% { 
+                color: #f1f502; 
+                transform: scale(1); 
+            }
+            50% { 
+                color: #eff301; 
+                transform: scale(1.2); 
+            }
+            100% { 
+                color: #e7f700; 
+                transform: scale(1); 
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 2px 2px #000;
+            margin: 0;
+            animation: titleAnimation 3s infinite;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(7, 196, 243);
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #e0f004;
+        }
+
+        main {
+            padding: 20px;
+            animation: slideInMain 1.5s ease-in-out;
+        }
+
+        @keyframes slideInMain {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-details {
+            background-color: #363633;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+            max-width: 800px;
+            animation: fadeInContent 1.5s ease-out;
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .game-details h2 {
+            color: #e0f004;
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+        .game-details h3 {
+            border-bottom: 2px solid #ff6347;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            color: #ff6347;
+        }
+
+        .game-details p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .game-details a {
+            color: #282bec;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .game-details a:hover {
+            color: #7289da;
+            text-decoration: underline;
+        }
+
+        .game-image {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .game-image img {
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+        }
+
+        footer {
+            background-color: #333;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            color: #99aab5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DETAILS</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="details.html">Samp Details</a></li>
+                <li><a href="gpt.html">Chat Gpt</a></li>
+                <li><a href="tictactoe.html">Game</a></li>
+                <li><a href="calculator.html">Calculator</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="game-details">
+            <h2>AREA 51</h2>
+            <p>IT'S OUR AREA.</p>
+            <h3>DISCORD</h3>
+            <p><a href="https://discord.gg/AAm2BqNZ2u">DISCORD LINK</a></p>
+            <h3>GAME</h3>
+            <p>SAMP "SAN-ANDREAS MULTIPLAYER".</p>
+            <h3>ABOUT THE GAME</h3>
+            <p>San Andreas Multiplayer (SA-MP) is a modification for the Rockstar North video game Grand Theft Auto: San Andreas, which transforms it into a multiplayer online game. This mod allows players from around the world to interact and play together in the vast, open-world environment of San Andreas. Below is a detailed overview of SA-MP, its features, and its community.</p>
+        </article>
+        
+        <section class="game-image">
+            <img src="images/DETAILS.png" width="500" height="300" alt="Game Details Image">
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AREA 51. All rights reserved.</p>
+    </footer>
+</body>
+</html>
